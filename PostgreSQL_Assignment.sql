@@ -119,7 +119,6 @@ FROM discovery_date) < 1800
 
 
 
-
 -- Problem 8
 
 SELECT sighting_id,
