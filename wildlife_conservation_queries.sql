@@ -65,7 +65,7 @@ SELECT * FROM sightings WHERE location LIKE '%Pass%'
 -- Problem 4
 
 SELECT rangers.name AS ranger_name, COUNT(sightings.sighting_id) AS total_sightings FROM rangers
-JOIN sightings ON rangers.ranger_id = sightings.ranger_id -- OR you can use USING because we have common field ranger_id in both rangers and sightings table
+JOIN sightings ON rangers.ranger_id = sightings.ranger_id -- OR you can use USING (ranger_id) because we have common column/attribute "ranger_id" in both rangers and sightings table
 GROUP BY rangers.name
 
 -- Show all sightings count even if a ranger don't have any sighing count
@@ -73,6 +73,67 @@ GROUP BY rangers.name
 SELECT rangers.name AS ranger_name, COUNT(sightings.sighting_id) AS total_sightings FROM rangers
 LEFT JOIN sightings  ON rangers.ranger_id = sightings.ranger_id
 GROUP BY rangers.name
+
+
+
+
+Select * FROM species
+
+SELECT * FROM sightings
+
+
+
+-- Problem 5
+
+SELECT species.common_name AS species_common_name
+FROM species
+LEFT JOIN sightings ON species.species_id = sightings.species_id
+WHERE sightings.sighting_id IS NULL
+
+
+
+-- Problem 6
+
+
+
+Select * FROM species
+
+SELECT * FROM rangers
+
+SELECT * FROM sightings;
+
+
+-- Problem 6 
+
+
+SELECT species.common_name AS species_common_name,
+       sightings.sighting_time AS two_most_recent_sighting_time,
+       rangers.name AS ranger_name
+FROM sightings
+
+INNER JOIN species ON sightings.species_id = species.species_id
+
+INNER JOIN rangers ON sightings.ranger_id = rangers.ranger_id
+
+ORDER BY sightings.sighting_time DESC
+LIMIT 2
+
+
+
+
+SELECT * FROM species;
+
+
+
+-- Problem 7
+
+UPDATE species
+SET conservation_status = 'Historic'
+WHERE EXTRACT(YEAR
+FROM discovery_date) < 1800
+
+
+
 
 
 
